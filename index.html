@@ -1,84 +1,53 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=640">
+﻿<!DOCTYPE html>
+<html >
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+</head>
 
-    <link rel="stylesheet" href="stylesheets/core.css" media="screen">
-    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)">
-    <link rel="stylesheet" href="stylesheets/github-light.css">
-
-    <script type="text/javascript" src="javascripts/modernizr.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
-    <script type="text/javascript">
-      $(document).ready(function () {
-        $('#main_content').headsmart()
-      })
-    </script>
-    <title>Yxmanyxman.GitHub.com by yxmanyxman</title>
-  </head>
-
-  <body>
-    <a id="forkme_banner" href="https://github.com/yxmanyxman">View on GitHub</a>
-    <div class="shell">
-
-      <header>
-        <span class="ribbon-outer">
-          <span class="ribbon-inner">
-            <h1>Yxmanyxman.GitHub.com</h1>
-            <h2>canvas 粽子</h2>
-          </span>
-          <span class="left-tail"></span>
-          <span class="right-tail"></span>
-        </span>
-      </header>
-
-      <div id="no-downloads">
-        <span class="inner">
-        </span>
-      </div>
-
-
-      <span class="banner-fix"></span>
-
-
-      <section id="main_content">
-        <p>&lt;!DOCTYPE html&gt;
-
-</p>
-    
-    
-
-
-<p></p>
-
-
+<body>
+<canvas id="canvas" width="500" height="400" style="border: 1px solid"></canvas>
 <div id="ds"></div>
 
+<script type="text/javascript">
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+    var dir = 0;
+    var height = 1000;
+    var width = 1000;
+    var exp = 1;//像素移动的位置
+    function fff() {
+        ctx.restore();
+        ctx.clearRect(0,0,height,width);//清除上一次的痕迹
+        //set the shadow
+       ctx.shadowOffsetX=-3;
+        ctx.shadowOffsetY=-3;
+       ctx.shadowBlur=9;
+        ctx.shadowColor="rgba(0,0,0,0.5)";
+        //draw the quadratic
+        ctx.strokeStyle="gary";
+        ctx.beginPath();
+        ctx.moveTo(200,100+dir);
+        ctx.quadraticCurveTo(250,10 + dir,300,100 + dir);//1
+        ctx.quadraticCurveTo(350,200 + dir,250,200 + dir);//2
+        ctx.quadraticCurveTo(150,200 + dir,200,100 + dir);//3
+        ctx.stroke();
+        //ctx.globalCompositeOperation="destination-in";
+        ctx.save();
+        ctx.clip();
+        ctx.fillStyle="black";
+        ctx.fillRect(220, 150 + dir,60,50);
+//      ctx.arc(190, dir, 20, 0, Math.PI * 2, 1);
+        dir = dir + exp;
+        if(dir==0||dir==height)
+        {
+            exp = exp *( -1);
+        }
+    }
 
-
-<p>开始
-停止
-
-</p>
-      </section>
-
-      <footer>
-        <span class="ribbon-outer">
-          <span class="ribbon-inner">
-            <p>Projects by <a href="https://github.com/yxmanyxman">yxmanyxman</a> can be found on <a href="https://github.com/yxmanyxman">GitHub</a></p>
-          </span>
-          <span class="left-tail"></span>
-          <span class="right-tail"></span>
-        </span>
-        <p>Generated with <a href="https://pages.github.com">GitHub Pages</a> using Merlot</p>
-        <span class="octocat"></span>
-      </footer>
-
-    </div>
-
-    
-  </body>
+</script>
+<button onclick="cvs=setInterval(fff,70);">开始</button>
+<button onclick="clearInterval(cvs);" >停止</button>
+<a href="http://blog.csdn.net/yxmanyxman/article/details/51778774">会移动的饭团思路分享</a>
+</body>
 </html>
